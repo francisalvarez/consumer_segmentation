@@ -1,0 +1,7 @@
+segment,Age,Annual_Income_(k$),Spending_Score,Genre,segment_name,count,share_pct
+2,54.17307692307692,54.78846153846154,48.59615384615385,Female,Established Comfort Shoppers,52,26.0
+3,32.69230769230769,86.53846153846153,82.12820512820512,Female,Premium Momentum Spenders,39,19.5
+1,23.852941176470587,59.088235294117645,43.97058823529412,Female,Emerging Mid-Income Explorers,34,17.0
+5,44.0,90.13333333333334,17.933333333333334,Male,Affluent Low-Engagement Professionals,30,15.0
+4,25.56,26.48,76.24,Female,Young High-Interest Savers,25,12.5
+0,45.4,25.65,18.55,Female,Mature Value Seekers,20,10.0

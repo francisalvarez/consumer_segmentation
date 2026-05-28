@@ -1,0 +1,6 @@
+variable,dtype,unique,missing,missing_pct,cardinality,skewness,low_variance
+CustomerID,int64,200,0,0.0,high,0.0,False
+Genre,object,2,0,0.0,low,,False
+Age,int64,51,0,0.0,high,0.48556885096681657,False
+Annual_Income_(k$),int64,64,0,0.0,high,0.3218425498619055,False
+Spending_Score,int64,84,0,0.0,high,-0.047220201374263374,False

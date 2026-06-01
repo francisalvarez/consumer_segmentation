@@ -110,15 +110,34 @@ def plot_pca(df: pd.DataFrame, features: List[str], labels: Optional[pd.Series],
     pca = PCA(n_components=2, random_state=42)
     embedded = pca.fit_transform(df[features])
     result = pd.DataFrame(embedded, columns=["pca_1", "pca_2"])
+    loadings = pca.components_.T
+
+    fig, ax = plt.subplots(figsize=(8, 6))
     if labels is not None:
         result["cluster"] = labels.astype(str)
-        fig, ax = plt.subplots(figsize=(7, 5))
-        sns.scatterplot(data=result, x="pca_1", y="pca_2", hue="cluster", palette="tab10", ax=ax)
-        ax.set_title("PCA projection by cluster")
-        ax.legend(title="Cluster", bbox_to_anchor=(1.05, 1), loc="upper left")
-        fig.tight_layout()
-        fig.savefig(output_path, dpi=150)
-        plt.close(fig)
+        sns.scatterplot(data=result, x="pca_1", y="pca_2", hue="cluster", palette="tab10", ax=ax, s=70, edgecolor="w", linewidth=0.5)
+        ax.legend(title="Cluster", bbox_to_anchor=(1.02, 1), loc="upper left")
+    else:
+        sns.scatterplot(data=result, x="pca_1", y="pca_2", color="#2c7fb8", ax=ax, s=70, edgecolor="w", linewidth=0.5)
+
+    # Perceptual map arrows for original variables
+    scale_x = np.max(np.abs(embedded[:, 0]))
+    scale_y = np.max(np.abs(embedded[:, 1]))
+    vectors = loadings * np.array([scale_x, scale_y])
+    for i, feature in enumerate(features):
+        x_vec, y_vec = vectors[i, 0], vectors[i, 1]
+        ax.arrow(0, 0, x_vec, y_vec, color="#444444", width=0.005, head_width=0.06, length_includes_head=True)
+        ax.text(x_vec * 1.08, y_vec * 1.08, feature, color="#444444", fontsize=10, ha="center", va="center")
+
+    ax.set_xlabel("PCA 1")
+    ax.set_ylabel("PCA 2")
+    ax.set_title("PCA perceptual map with segment clusters")
+    ax.axhline(0, color="#d3d3d3", linewidth=0.8)
+    ax.axvline(0, color="#d3d3d3", linewidth=0.8)
+    fig.tight_layout()
+    fig.savefig(output_path, dpi=150)
+    plt.close(fig)
+
     return pca
 
 
